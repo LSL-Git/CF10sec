@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    
+    <context:component-scan base-package="com.lsl.ssm.dao"/>
+    <context:component-scan base-package="com.lsl.ssm.service"/>
+    
+    <!-- 读取数据库配置文件 -->
+    <context:property-placeholder location="classpath:database.properties"/>
+    
+    <!-- JNDI获取数据源（使用dbcp连接池） -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" scope="singleton">
+    	<property name="driverClassName" value="${jdbc.driver}"/>
+    	<property name="url" value="${jdbc.url}"/>
+    	<property name="username" value="${jdbc.username}"/>
+    	<property name="password" value="${jdbc.password}"/>
+    	<property name="initialSize" value="${jdbc.initialSize}"/>
+    	<property name="maxActive" value="${jdbc.maxActive}"/>
+    	<property name="maxIdle" value="${jdbc.maxIdle}"/>
+    	<property name="minIdle" value="${jdbc.minIdle}"/>
+    	<property name="maxWait" value="${jdbc.maxWait}"/>
+    	<property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}"/>
+    	<property name="removeAbandoned" value="${jdbc.removeAbandoned}"/>
+    	<!-- sql 心跳 -->
+    	<property name="testWhileIdle" value="true"/>
+    	<property name="testOnBorrow" value="false"/>
+    	<property name="testOnReturn" value="false"/>
+    	<property name="validationQuery" value="select 1"/>
+    	<property name="timeBetweenEvictionRunsMillis" value="60000"/>
+    	<property name="numTestsPerEvictionRun" value="${jdbc.maxActive}"/>
+    </bean>
+    
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource" ref="dataSource"/>
+    </bean>
+
+	<!-- 配置MyBatis SqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+	</bean>
+	
+	<!-- AOP事务处理 -->
+	<aop:aspectj-autoproxy/>
+	<aop:config proxy-target-class="true">
+		<aop:pointcut expression="execution(* *com.lsl.ssm.service..*(..))" id="transService"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="transService"/>
+	</aop:config>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="ssm*" propagation="REQUIRED" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.lsl.ssm.dao"/>
+	</bean>
+
+</beans>

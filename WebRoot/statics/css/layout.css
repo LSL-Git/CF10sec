@@ -1,0 +1,46 @@
+section {
+	margin-top: 100px;
+}
+
+section div {
+	margin: 0 auto;
+	width: 400px;
+	height: 200px;
+	/*background: #FCBD6C;*/ /*border-width: 1px;*/
+}
+
+section div div {
+	width: 400px;
+	height: 250px;
+	align-content: center;
+}
+
+section div div #show {
+	display: block;
+	margin: 0 auto;
+	font-size: 60px;
+	width: 300px;
+	text-align: center;
+	line-height: 200px;
+}
+
+section div div #result {
+	display: block;
+	margin: -25px auto;
+	font-size: 50px;
+	width: 300px;
+	text-align: center;
+	line-height: 0;
+	color: #d40007;
+}
+
+section div div input {
+	margin: 0 auto;
+	border: 0;
+	background: #3dc711;
+	width: 180px;
+	height: 114px;
+	display: block;
+	font-size: 40px;
+	color: #fff;
+}
