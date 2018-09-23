@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * @author LSL
  *
  */
-@Target(ElementType.METHOD) // 只能作用在方法上
+@Target({ElementType.METHOD, ElementType.TYPE, ElementType.FIELD}) // 只能作用在方法上
 @Retention(RetentionPolicy.RUNTIME) // jvm运行时保留
 public @interface Token {
 

@@ -14,7 +14,6 @@ var count = 0;
 function stop() {
 
 	if (button.value === "开始") {
-		num3 = 0;
 		timedCount();
 		button.style.background = "#d40007";
 		button.value = "停";
@@ -23,12 +22,7 @@ function stop() {
 		button.style.background = "#d0ca0d";
 		button.value = "重置";
 	} else {
-		button.style.background = "#3dc711";
-		button.value = "开始";
-		show.style.color = "#000000";
-		show.innerText = "00:00:00";
-		show.style.fontSize = "60px";
-		result.innerText = "";
+		window.location.reload();
 	}
 }
 
@@ -86,10 +80,6 @@ function stopCount() {
 	clearTimeout(t); // 停止计时
 	Count(encode(num1, num2, num3), encode(num2, num3, num2), encode(num3,
 			num2, num1));
-	num3 = 0;
-	num1 = 0;
-	num2 = 0;
-	count = 0;
 }
 
 function trans(c, tx) {

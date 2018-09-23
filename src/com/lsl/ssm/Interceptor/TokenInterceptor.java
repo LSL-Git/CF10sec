@@ -16,7 +16,7 @@ import com.lsl.ssm.tools.Contants;
 import com.lsl.ssm.tools.MD5Utils;
 
 /**
- * token 拦截器
+ * token 拦截器，验证token是否有效
  * @author LSL
  *
  */
@@ -28,14 +28,14 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		logger.info("Token Interceptor preHandle =========================== ");
-		if (handler instanceof HandlerMethod) {
+		if (handler instanceof HandlerMethod) {			
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
 			Method method = handlerMethod.getMethod();
-			Token annotation = method.getAnnotation(Token.class);
+			Token annotation = method.getAnnotation(Token.class); // 得到注解对象
 			if (annotation != null) {
-				boolean saveSession = annotation.save();
+				boolean saveSession = annotation.save(); // 得到save()方法的值
 				if (saveSession) {
-					request.getSession(false).setAttribute(Contants.TOKEN, getToken()); // 随机生成token
+					request.getSession(false).setAttribute(Contants.TOKEN, getToken()); // 随机生成新token
 				}
 				boolean removeSession = annotation.remove();
 				if (removeSession) {
@@ -43,7 +43,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 //						response.setStatus(403);
 						return false;
 					}
-					request.getSession(false).removeAttribute(Contants.TOKEN);
+					request.getSession(false).removeAttribute(Contants.TOKEN); // 移除原token
 				}
 			}
 			return true;

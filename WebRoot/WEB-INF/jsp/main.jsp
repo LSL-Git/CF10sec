@@ -26,5 +26,5 @@
 <input type="hidden" id="path" name="path" value="${pageContext.request.contextPath }"/>
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/main2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/main.js"></script>
 </html>

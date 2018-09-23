@@ -5,6 +5,11 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	<display-name>SpringMVC</display-name>
+	
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	
 	<!-- 方式一：
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
@@ -32,7 +37,7 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:springmvc-servlet-mvcannotation.xml</param-value>
+			<param-value>classpath:springmvc-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -98,5 +103,18 @@
 	<session-config>
 		<session-timeout>10</session-timeout>
 	</session-config>
-	
+	<!-- 配置错误访问  start -->
+	<error-page>
+		<error-code>403</error-code>
+		<location>/403.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>405</error-code>
+		<location>/405.jsp</location>
+	</error-page>
+	<!-- 配置错误访问 end-->
 </web-app>

@@ -2,19 +2,10 @@ package com.lsl.ssm.test;
 
 import java.util.regex.Pattern;
 
-import javax.annotation.Resource;
-
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.lsl.ssm.Interceptor.TokenInterceptor;
-import com.lsl.ssm.pojo.User;
-import com.lsl.ssm.service.user.UserService;
 import com.lsl.ssm.tools.MyDecode;
-import com.lsl.ssm.tools.RSAUtils;
-import com.lsl.ssm.tools.StrTool;
 
 
 public class UserServiceTest {
@@ -82,8 +73,8 @@ public class UserServiceTest {
 	
 	@Test
 	public void getTokenTest() {
-		TokenInterceptor token = new TokenInterceptor();
-		log.info(token.getToken());
+//		TokenInterceptor token = new TokenInterceptor();
+//		log.info(token.getToken());
 	}
 	
 	
