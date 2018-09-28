@@ -11,6 +11,7 @@ var text_num1 = "";
 var text_num2 = "";
 var text_num3 = "";
 var count = 0;
+var scrWidth = window.innerWidth;
 function stop() {
 
 	if (button.value === "开始") {
@@ -39,7 +40,11 @@ function encode(k, n, c) {
 
 function timedCount() {
 	result.innerText = "";
-	show.style.fontSize = "60px";
+	if (scrWidth >= 768 && scrWidth < 1024) {
+		show.style.fontSize = "120px";
+	}else {
+		show.style.fontSize = "80px";
+	}
 	show.style.color = "#000000";
 	if (num3 % 2 === 1) {
 		num2 += 1;
@@ -85,7 +90,7 @@ function stopCount() {
 function trans(c, tx) {
 	show.style.color = c;
 	result.style.color = c;
-	show.style.fontSize = "40px";
+	show.style.fontSize = "60px";
 	button.style.background = "#d0ca0d";
 	button.value = "重置";
 	result.innerText = tx;
